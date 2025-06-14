@@ -9,7 +9,11 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
+<<<<<<< Updated upstream
   - wall to see thru
+=======
+  - NoTransparent
+>>>>>>> Stashed changes
   - Water
   - UI
   - 
