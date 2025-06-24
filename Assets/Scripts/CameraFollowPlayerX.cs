@@ -14,6 +14,7 @@ public class CameraFollowPlayerX : MonoBehaviour
 
     [Header("Original position")]
     [SerializeField] private float m_originalXValue;
+    [SerializeField] private float m_originalYValue;
 
     [Header("LeanTween Speed Value")]
     [SerializeField] private float m_speed;
@@ -25,13 +26,13 @@ public class CameraFollowPlayerX : MonoBehaviour
     {
         if (m_moveCam)
         {
-            Vector3 desiredPosition = new Vector3(m_playerTransform.position.x + m_offset, 3.61f, 8.26f);
+            Vector3 desiredPosition = new Vector3(m_playerTransform.position.x + m_offset, m_originalYValue, 8.26f);
             Vector3 SmoothPosition = Vector3.Lerp(transform.position, desiredPosition, m_speed * Time.deltaTime);
             transform.position = SmoothPosition;
         }
         else
         {
-            Vector3 SmoothPosition = Vector3.Lerp(transform.position, new Vector3(m_originalXValue, 3.61f, 8.26f), m_speed * Time.deltaTime);
+            Vector3 SmoothPosition = Vector3.Lerp(transform.position, new Vector3(m_originalXValue, m_originalYValue, 8.26f), m_speed * Time.deltaTime);
             transform.position = SmoothPosition;
         }
     }
