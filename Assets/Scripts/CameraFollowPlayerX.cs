@@ -26,9 +26,9 @@ public class CameraFollowPlayerX : MonoBehaviour
     {
         if (m_moveCam)
         {
-            Vector3 desiredPosition = new Vector3(m_playerTransform.position.x + m_offset, m_originalYValue, 8.26f);
-            Vector3 SmoothPosition = Vector3.Lerp(transform.position, desiredPosition, m_speed * Time.deltaTime);
-            transform.position = SmoothPosition;
+            Vector3 desiredPosition = new Vector3(Mathf.Clamp(m_playerTransform.position.x + m_offset, -10, -1.9f), m_originalYValue, 8.26f);
+            Vector3 smoothPosition = Vector3.Lerp(transform.position, desiredPosition, m_speed * Time.deltaTime);
+            transform.position = smoothPosition;
         }
         else
         {

@@ -7,11 +7,15 @@ public class CameraXMovementToggle : MonoBehaviour
     [Header("Reference to CameraFollowPlayerX")]
     [SerializeField] private CameraFollowPlayerX m_camFollowPlayerX;
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.CompareTag("cameraToggle"))
+        if (other.gameObject.CompareTag("cameraToggleOn"))
         {
-            m_camFollowPlayerX.m_moveCam = !m_camFollowPlayerX.m_moveCam;
+            m_camFollowPlayerX.m_moveCam = true;
+        }
+        else if (other.gameObject.CompareTag("cameraToggleOff"))
+        {
+            m_camFollowPlayerX.m_moveCam = false;
         }
     }
 }
