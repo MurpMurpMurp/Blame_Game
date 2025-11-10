@@ -6,6 +6,7 @@ TagManager:
   tags:
   - cameraToggleOff
   - cameraToggleOn
+  - feet
   layers:
   - Default
   - TransparentFX
@@ -13,8 +14,8 @@ TagManager:
   - wall to see thru
   - Water
   - UI
-  - 
-  - 
+  - outlined objects
+  - object to interact with thru a render texture
   - 
   - 
   - 

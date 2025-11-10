@@ -14,11 +14,16 @@ public class TempMovement : MonoBehaviour
     [Header("References")]
     [SerializeField] Rigidbody m_rb;
 
+    public bool m_canPlayerMove = true;
+
     private Vector3 m_moveVector;
 
     private void Update()
     {
-        ProcessInputs();
+        if (m_canPlayerMove)
+        {
+            ProcessInputs();
+        }
     }
 
     private void FixedUpdate()
