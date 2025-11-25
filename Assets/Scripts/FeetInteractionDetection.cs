@@ -1,15 +1,10 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.UI;
 
-public class DetectClickThruARenderTexture : MonoBehaviour , IPointerClickHandler
+public class FeetInteractionDetection : MonoBehaviour
 {
-    /*
-     * VERY IMPORTANT!!!
-     * this is the default code for interacting thru a render texture,it should not be use in the full game and can be deleted before release to lower game size
-     * DO NOT MODIFY!!
-    */
-
     [Header("References")]
     [SerializeField] private RectTransform m_rectTransform;
     [SerializeField] private Camera m_thisInteractionsRenderTextureCamera;
@@ -39,7 +34,9 @@ public class DetectClickThruARenderTexture : MonoBehaviour , IPointerClickHandle
 
         if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, m_layer))
         {
-            // put the code to execute upon a click on the object here
+
+            m_gameObject.transform.position = hit.point;
+            Debug.Log(hit.collider.gameObject.name);
         }
     }
 }
