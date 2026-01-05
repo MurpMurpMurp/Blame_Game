@@ -8986,6 +8986,7 @@ MonoBehaviour:
   m_testMaterials:
   - {fileID: 2100000, guid: f3d3fdbebab97434a81a736fd87c643a, type: 2}
   - {fileID: 2100000, guid: edebd551eddf0544fba89afc1dbca6c3, type: 2}
+  m_goalReached: 0
 --- !u!1 &378912338
 GameObject:
   m_ObjectHideFlags: 0
@@ -11220,7 +11221,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.2
+  m_Radius: 0.05
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &447887604
 MeshRenderer:
@@ -24754,7 +24755,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.2
+  m_Radius: 0.05
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &1329554326
 MeshRenderer:
@@ -32363,13 +32364,13 @@ MonoBehaviour:
   m_layer:
     serializedVersion: 2
     m_Bits: 384
+  m_endGoalTriggerLeft: {fileID: 2094616755}
+  m_endGoalTriggerRight: {fileID: 372516682}
   m_mocassinWasPressed: 0
   m_hitRigidbody: {fileID: 0}
   m_force: 10
+  m_feetCompleted: 0
   m_testObject: {fileID: 1090340543}
-  m_testMaterials:
-  - {fileID: 2100000, guid: f3d3fdbebab97434a81a736fd87c643a, type: 2}
-  - {fileID: 2100000, guid: edebd551eddf0544fba89afc1dbca6c3, type: 2}
 --- !u!1 &1728472865
 GameObject:
   m_ObjectHideFlags: 0
@@ -38674,6 +38675,7 @@ MonoBehaviour:
   m_testMaterials:
   - {fileID: 2100000, guid: f3d3fdbebab97434a81a736fd87c643a, type: 2}
   - {fileID: 2100000, guid: edebd551eddf0544fba89afc1dbca6c3, type: 2}
+  m_goalReached: 0
 --- !u!1 &2111238884
 GameObject:
   m_ObjectHideFlags: 0
@@ -38768,7 +38770,10 @@ MonoBehaviour:
   m_screenScriptableObjects: {fileID: 0}
   m_player: {fileID: 1911097900}
   m_tempMovement: {fileID: 1911097902}
-  m_lowerInteractionScreenButton: {fileID: 344243532}
+  m_feetInteractionDetection: {fileID: 1715857781}
+  m_timer: 0
+  m_timeToReach: 1
+  m_timerDone: 0
   m_feetAnimator: {fileID: 1715857779}
 --- !u!43 &2129996053
 Mesh:

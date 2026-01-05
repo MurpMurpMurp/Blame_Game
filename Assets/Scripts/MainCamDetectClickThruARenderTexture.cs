@@ -16,7 +16,12 @@ public class MainCamDetectClickThruARenderTexture : MonoBehaviour , IPointerClic
     [SerializeField] private ScreenScriptableObjects m_screenScriptableObjects;
     [SerializeField] private Transform m_player;
     [SerializeField] private TempMovement m_tempMovement;
-    [SerializeField] private Button m_lowerInteractionScreenButton;
+    [SerializeField] private FeetInteractionDetection m_feetInteractionDetection;
+
+    [Header("Time Before Lowering Interaction Upon Completion")]
+    [SerializeField] private float m_timer;
+    [SerializeField] private float m_timeToReach;
+    [SerializeField] private bool m_timerDone;
 
     [Header("Animator References")]
     [SerializeField] private Animator m_feetAnimator;
@@ -24,7 +29,6 @@ public class MainCamDetectClickThruARenderTexture : MonoBehaviour , IPointerClic
     //[Header("test Stuff")]
     //[SerializeField] private GameObject m_gameObject;
 
-    private bool m_playerHasClickedOnScreenToLowerInteraction = false;
 
     private bool m_feetIsUp = false;
 
@@ -54,29 +58,31 @@ public class MainCamDetectClickThruARenderTexture : MonoBehaviour , IPointerClic
                 m_feetAnimator.SetTrigger("Go up");
                 m_feetIsUp = true;
                 m_tempMovement.m_canPlayerMove = false;
-                m_lowerInteractionScreenButton.enabled = true;
+                m_timer = 0;
+                m_timerDone = false;
             }
         }
     }
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(1) || m_playerHasClickedOnScreenToLowerInteraction)
+        if (m_feetInteractionDetection.m_feetCompleted)
         {
-            if (m_feetIsUp)
+            if (m_timer < m_timeToReach)
+            {
+                m_timer += Time.deltaTime;
+                m_timerDone = false;
+            }
+            if (m_timer >= m_timeToReach)
+            {
+                m_timerDone = true;
+            }
+
+            if (m_feetIsUp && m_timerDone)
             {
                 m_feetAnimator.SetTrigger("Go down");
                 m_tempMovement.m_canPlayerMove = true;
             }
-
-            m_lowerInteractionScreenButton.enabled = false;
-            m_playerHasClickedOnScreenToLowerInteraction = false;
         }
-    }
-
-    public void LowerInteractionScreen()
-    {
-        m_playerHasClickedOnScreenToLowerInteraction = true;
-        Debug.Log("button has been pressed");
     }
 }

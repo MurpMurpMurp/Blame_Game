@@ -9,11 +9,16 @@ public class FeetInteractionDetection : MonoBehaviour, IPointerDownHandler, IPoi
     [SerializeField] private RectTransform m_rectTransform;
     [SerializeField] private Camera m_thisInteractionsRenderTextureCamera;
     [SerializeField] private LayerMask m_layer;
+    [SerializeField] private FeetEndGoalTrigger m_endGoalTriggerLeft;
+    [SerializeField] private FeetEndGoalTrigger m_endGoalTriggerRight;
 
     [Header("Feet Interaction Specific Stuff")]
     [SerializeField] private bool m_mocassinWasPressed;
     [SerializeField] private Rigidbody m_hitRigidbody;
     [SerializeField] private float m_force = 1;
+
+    [Header("End Goal")]
+    public bool m_feetCompleted;
 
     [Header("test")]
     [SerializeField] private GameObject m_testObject;
@@ -37,11 +42,25 @@ public class FeetInteractionDetection : MonoBehaviour, IPointerDownHandler, IPoi
         {
             m_mocassinWasPressed = false;
         }
+
+        CheckIfTheInteractionWasCompleted();
     }
 
     private void FixedUpdate()
     {
         MoveTheObjectThatWasClickedOn();
+    }
+
+    private void CheckIfTheInteractionWasCompleted()
+    {
+        if (m_endGoalTriggerLeft.m_goalReached && m_endGoalTriggerRight.m_goalReached)
+        {
+            m_feetCompleted = true;
+        }
+        //else
+        //{
+        //    m_feetCompleted = false;
+        //}
     }
 
     private void MoveTheObjectThatWasClickedOn()
