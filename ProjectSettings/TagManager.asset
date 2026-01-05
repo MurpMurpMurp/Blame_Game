@@ -8,6 +8,7 @@ TagManager:
   - cameraToggleOn
   - feet
   - end goal
+  - floor
   layers:
   - Default
   - TransparentFX
@@ -17,7 +18,7 @@ TagManager:
   - UI
   - outlined objects
   - object to interact with thru a render texture
-  - 
+  - floor
   - 
   - 
   - 

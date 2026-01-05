@@ -11,12 +11,9 @@ public class DetectClickThruARenderTexture : MonoBehaviour , IPointerClickHandle
     */
 
     [Header("References")]
-    [SerializeField] private RectTransform m_rectTransform;
-    [SerializeField] private Camera m_thisInteractionsRenderTextureCamera;
-    [SerializeField] private LayerMask m_layer;
-
-    [Header("test Stuff")]
-    [SerializeField] private GameObject m_gameObject;
+    [SerializeField] private RectTransform m_rectTransform; //The rect Transform of the Raw Image that the Render Texture is on
+    [SerializeField] private Camera m_thisInteractionsRenderTextureCamera; //The camera of the render texture
+    [SerializeField] private LayerMask m_layer; //you must be using a layer to limit what items can be clicked on
 
     private void Start()
     {
@@ -40,6 +37,7 @@ public class DetectClickThruARenderTexture : MonoBehaviour , IPointerClickHandle
         if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, m_layer))
         {
             // put the code to execute upon a click on the object here
+            Debug.Log("clicked on something");
         }
     }
 }

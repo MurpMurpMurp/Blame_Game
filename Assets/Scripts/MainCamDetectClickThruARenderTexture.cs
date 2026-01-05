@@ -21,8 +21,8 @@ public class MainCamDetectClickThruARenderTexture : MonoBehaviour , IPointerClic
     [Header("Animator References")]
     [SerializeField] private Animator m_feetAnimator;
 
-    [Header("test Stuff")]
-    [SerializeField] private GameObject m_gameObject;
+    //[Header("test Stuff")]
+    //[SerializeField] private GameObject m_gameObject;
 
     private bool m_playerHasClickedOnScreenToLowerInteraction = false;
 
@@ -49,8 +49,6 @@ public class MainCamDetectClickThruARenderTexture : MonoBehaviour , IPointerClic
 
         if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, m_layer))
         {
-            m_gameObject.transform.position = hit.point;
-
             if (hit.collider.gameObject.tag == "feet" && Vector3.Distance(m_player.position, hit.collider.gameObject.transform.position) <= m_distanceForInteraction)
             {
                 m_feetAnimator.SetTrigger("Go up");
