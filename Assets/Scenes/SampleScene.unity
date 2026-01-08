@@ -4472,7 +4472,7 @@ GameObject:
   - component: {fileID: 183954513}
   - component: {fileID: 183954512}
   m_Layer: 0
-  m_Name: feet cam
+  m_Name: feet camera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -38771,10 +38771,12 @@ MonoBehaviour:
   m_player: {fileID: 1911097900}
   m_tempMovement: {fileID: 1911097902}
   m_feetInteractionDetection: {fileID: 1715857781}
+  m_feetAnimator: {fileID: 1715857779}
+  m_feetCamera: {fileID: 183954514}
   m_timer: 0
   m_timeToReach: 1
+  m_timeToReach2: 2
   m_timerDone: 0
-  m_feetAnimator: {fileID: 1715857779}
 --- !u!43 &2129996053
 Mesh:
   m_ObjectHideFlags: 0
