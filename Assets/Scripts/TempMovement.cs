@@ -1,22 +1,31 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class TempMovement : MonoBehaviour
 {
-    [Header("Variable To Change The Forward Direction")]
-    [Tooltip("change from one to four to change direction, idk which one is which but we start the game on 0 if that helps")]
-    public int m_moveDir; 
-
     [Header("Variables")]
     [SerializeField] private float m_moveSpeed;
+    [SerializeField] private float m_rotateSpeed;
 
     [Header("References")]
-    [SerializeField] Rigidbody m_rb;
+    [SerializeField] private Rigidbody m_rb;
+    [SerializeField] public Camera m_camera;
+
+    [Header("others")]
+    [SerializeField] private Vector2 m_input;
 
     public bool m_canPlayerMove = true;
 
-    private Vector3 m_moveVector;
+    
+
+
+    private void Start()
+    {
+        var forward = m_camera.transform.forward;
+        var right = m_camera.transform.right;
+    }
 
     private void Update()
     {
@@ -33,36 +42,20 @@ public class TempMovement : MonoBehaviour
 
     private void ProcessInputs()
     {
-        float moveX = Input.GetAxisRaw("Horizontal");
-        float moveY = Input.GetAxisRaw("Vertical") * -1;
-
-        m_moveVector = new Vector3(moveX, moveY, 0).normalized;
+        m_input = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+        m_input = Vector2.ClampMagnitude(m_input, 1);
     }
 
     private void Move()
     {
-        switch(m_moveDir) 
-        {
-            case 0:
+        Vector3 camF = m_camera.transform.forward;
+        Vector3 camR = m_camera.transform.right;
 
-                m_rb.velocity = new Vector3(m_moveVector.y * m_moveSpeed, 0, m_moveVector.x * m_moveSpeed);
-                break;
+        camF.y = 0;
+        camR.y = 0;
+        camF = camF.normalized;
+        camR = camR.normalized;
 
-            case 1:
-                m_rb.velocity = new Vector3(m_moveVector.x * m_moveSpeed, 0, m_moveVector.y * m_moveSpeed);
-                break;
-
-            case 2:
-                m_rb.velocity = new Vector3(-m_moveVector.y * m_moveSpeed, 0, -m_moveVector.x * m_moveSpeed);
-                break;
-
-            case 3:
-                m_rb.velocity = new Vector3(-m_moveVector.x * m_moveSpeed, 0, -m_moveVector.y * m_moveSpeed);
-                break;
-
-            default:
-                m_rb.velocity = new Vector3(m_moveVector.y * m_moveSpeed, 0, m_moveVector.x * m_moveSpeed);
-                break;
-        }
+        m_rb.transform.position += (camF * m_input.y + camR * m_input.x) * m_moveSpeed * Time.deltaTime;
     }
 }
