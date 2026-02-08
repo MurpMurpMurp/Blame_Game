@@ -1,14 +1,9 @@
-using Cinemachine;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class CameraFollowPlayerX : MonoBehaviour
 {
     [Header("Player Reference")]
     [SerializeField] private Transform m_playerTransform;
-    [SerializeField] private TempMovement m_movement;
 
     [Header("Player Offset")]
     [SerializeField] private float m_offsetX;
