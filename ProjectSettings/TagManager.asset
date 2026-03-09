@@ -9,6 +9,7 @@ TagManager:
   - feet
   - end goal
   - floor
+  - look outside
   layers:
   - Default
   - TransparentFX
@@ -19,7 +20,7 @@ TagManager:
   - outlined objects
   - object to interact with thru a render texture
   - floor
-  - 
+  - look outside layer
   - 
   - 
   - 

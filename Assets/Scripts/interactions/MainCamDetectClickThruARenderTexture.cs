@@ -8,6 +8,7 @@ public class MainCamDetectClickThruARenderTexture : MonoBehaviour , IPointerClic
 {
     [Header("Variables")]
     [SerializeField] private float m_distanceForInteraction;
+    [SerializeField] private float m_distanceForLookOutside;
 
     [Header("References")]
     [SerializeField] private RectTransform m_rectTransform;
@@ -17,12 +18,15 @@ public class MainCamDetectClickThruARenderTexture : MonoBehaviour , IPointerClic
     [SerializeField] private Transform m_player;
     [SerializeField] private TempMovement m_tempMovement;
     
-
     [Header("Feet Interaction References")]
     [SerializeField] private FeetInteractionDetection m_feetInteractionDetection;
     [SerializeField] private Animator m_feetAnimator;
     [SerializeField] private Camera m_feetCamera;
 
+    [Header("Look Outside References")]
+    [SerializeField] private lookOutside m_lookOutside;
+    [SerializeField] private Animator m_lookOutsideAnimator;
+    [SerializeField] private Camera m_lookOutsideCamera;
     [Header("Time Before Lowering Interaction Upon Completion")]
     [SerializeField] private float m_timer;
     [SerializeField] private float m_timeToReach;
@@ -35,6 +39,7 @@ public class MainCamDetectClickThruARenderTexture : MonoBehaviour , IPointerClic
 
 
     private bool m_feetIsUp = false;
+    private bool m_lookOutsideIsUp = false;
 
     private void Start()
     {
@@ -45,6 +50,7 @@ public class MainCamDetectClickThruARenderTexture : MonoBehaviour , IPointerClic
 
         // turn off interaction cameras until needed
         m_feetCamera.gameObject.SetActive(false);
+        m_lookOutsideCamera.gameObject.SetActive(false);
     }
 
     public void OnPointerClick(PointerEventData eventData)
@@ -67,12 +73,31 @@ public class MainCamDetectClickThruARenderTexture : MonoBehaviour , IPointerClic
                 m_tempMovement.m_canPlayerMove = false;
                 m_timer = 0;
                 m_timerDone = false;
-                m_feetCamera.gameObject.SetActive(true);
+            }
+            else if (hit.collider.gameObject.tag == "look outside" && Vector3.Distance(m_player.position, hit.collider.gameObject.transform.position) <= m_distanceForLookOutside)
+            {
+                m_lookOutsideAnimator.SetTrigger("Go up");
+                m_lookOutsideIsUp = true;
+                m_tempMovement.m_canPlayerMove = false;
             }
         }
     }
 
     private void Update()
+    {
+        DeactivateCamerasWhenNotInUse();
+
+        FeetInteractionTimers();
+        LookOutsideEndTriggers();
+    }
+
+    private void DeactivateCamerasWhenNotInUse()
+    {
+        m_feetCamera.gameObject.SetActive(m_feetIsUp);
+        m_lookOutsideCamera.gameObject.SetActive(m_lookOutsideIsUp);
+    }
+
+    private void FeetInteractionTimers()
     {
         if (m_feetInteractionDetection.m_feetCompleted)
         {
@@ -97,7 +122,18 @@ public class MainCamDetectClickThruARenderTexture : MonoBehaviour , IPointerClic
             {
                 m_feetAnimator.SetTrigger("Go down");
                 m_tempMovement.m_canPlayerMove = true;
+                m_feetIsUp = false;
             }
+        }
+    }
+    
+    private void LookOutsideEndTriggers()
+    {
+        if (m_lookOutsideIsUp && (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.D)))
+        {
+            m_lookOutsideAnimator.SetTrigger("Go down");
+            m_tempMovement.m_canPlayerMove = true;
+            m_lookOutsideIsUp = false;
         }
     }
 }
