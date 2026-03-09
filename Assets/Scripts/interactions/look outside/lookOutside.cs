@@ -38,6 +38,7 @@ public class lookOutside : MonoBehaviour, IPointerMoveHandler, IPointerDownHandl
         m_pointToLookAt = (m_hitMove.point - m_centerObject.position).normalized;
         float distance = Vector3.Distance(m_hitMove.point, m_centerObject.position);
         m_midPointObject.transform.position = m_centerObject.position + ((distance * m_distanceToLookAt) * m_pointToLookAt);
+        m_midPointObject.transform.localPosition = new Vector3(m_midPointObject.transform.localPosition.x, m_midPointObject.transform.localPosition.y, Mathf.Clamp(m_midPointObject.transform.localPosition.z, 15.42956f, 16.74f));
     }
 
     private void MakeCameraLagBehind()
