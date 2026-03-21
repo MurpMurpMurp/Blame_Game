@@ -41,6 +41,8 @@ public class MainCamDetectClickThruARenderTexture : MonoBehaviour , IPointerClic
     private bool m_feetIsUp = false;
     private bool m_lookOutsideIsUp = false;
 
+    private bool m_lookOutsideNoTriggers = true;
+
     private void Start()
     {
         if (m_rectTransform == null)
@@ -79,6 +81,8 @@ public class MainCamDetectClickThruARenderTexture : MonoBehaviour , IPointerClic
                 m_lookOutsideAnimator.SetTrigger("Go up");
                 m_lookOutsideIsUp = true;
                 m_tempMovement.m_canPlayerMove = false;
+                m_timer = 0;
+                m_lookOutsideNoTriggers = true;
             }
         }
     }
@@ -129,7 +133,16 @@ public class MainCamDetectClickThruARenderTexture : MonoBehaviour , IPointerClic
     
     private void LookOutsideEndTriggers()
     {
-        if (m_lookOutsideIsUp && (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.D)))
+        if(m_timer >= m_timeToReach)
+        {
+            m_lookOutsideNoTriggers = false;
+        }
+        else
+        {
+            m_timer += Time.deltaTime;
+        }
+
+        if (!m_lookOutsideNoTriggers && m_lookOutsideIsUp && (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.D)))
         {
             m_lookOutsideAnimator.SetTrigger("Go down");
             m_tempMovement.m_canPlayerMove = true;

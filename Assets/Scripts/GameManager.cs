@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private bool m_followNorthTrack = true;
     [SerializeField] private GameObject m_northVirtualCamera;
     [SerializeField] private GameObject m_westVirtualCamera;
+    [SerializeField] private TempMovement m_tempMovement;
 
     private bool m_flopper;
 
@@ -57,5 +58,6 @@ public class GameManager : MonoBehaviour
             m_flopper = false;
             Debug.Log("west to north");
         }
+        m_tempMovement.m_cameraIsNorth = m_followNorthTrack;
     }
 }
