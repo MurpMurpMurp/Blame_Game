@@ -40,7 +40,6 @@ public class MouseLook : MonoBehaviour
 
         m_yRotation += m_mouseX;
         m_yRotation = Mathf.Clamp(m_yRotation, m_minYValue, m_maxYValue);
-        Debug.Log(m_yRotation);
     }
 
     private void RotateBody()
