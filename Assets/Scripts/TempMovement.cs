@@ -78,8 +78,5 @@ public class TempMovement : MonoBehaviour
         camR = camR.normalized;
 
         m_rb.transform.position += (camF * m_input.y + camR * m_input.x) * m_moveSpeed * Time.deltaTime;
-
-        Debug.Log("camF: " + camF);
-        Debug.Log("camR: " + camR);
     }
 }

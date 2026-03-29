@@ -10,6 +10,7 @@ TagManager:
   - end goal
   - floor
   - look outside
+  - spot
   layers:
   - Default
   - TransparentFX
@@ -21,7 +22,7 @@ TagManager:
   - object to interact with thru a render texture
   - floor
   - look outside layer
-  - 
+  - dishes
   - 
   - 
   - 
