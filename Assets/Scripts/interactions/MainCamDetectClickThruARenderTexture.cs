@@ -27,6 +27,11 @@ public class MainCamDetectClickThruARenderTexture : MonoBehaviour , IPointerClic
     [SerializeField] private lookOutside m_lookOutside;
     [SerializeField] private Animator m_lookOutsideAnimator;
     [SerializeField] private Camera m_lookOutsideCamera;
+
+    [Header("Dishes References")]
+    [SerializeField] private Animator m_dishesAnimator;
+    [SerializeField] private Camera m_dishesCamera;
+
     [Header("Time Before Lowering Interaction Upon Completion")]
     [SerializeField] private float m_timer;
     [SerializeField] private float m_timeToReach;
@@ -40,6 +45,7 @@ public class MainCamDetectClickThruARenderTexture : MonoBehaviour , IPointerClic
 
     private bool m_feetIsUp = false;
     private bool m_lookOutsideIsUp = false;
+    private bool m_dishesIsUp = false;
 
     private bool m_lookOutsideNoTriggers = true;
 
@@ -53,6 +59,7 @@ public class MainCamDetectClickThruARenderTexture : MonoBehaviour , IPointerClic
         // turn off interaction cameras until needed
         m_feetCamera.gameObject.SetActive(false);
         m_lookOutsideCamera.gameObject.SetActive(false);
+        m_dishesCamera.gameObject.SetActive(false);
     }
 
     public void OnPointerClick(PointerEventData eventData)
@@ -75,6 +82,7 @@ public class MainCamDetectClickThruARenderTexture : MonoBehaviour , IPointerClic
                 m_tempMovement.m_canPlayerMove = false;
                 m_timer = 0;
                 m_timerDone = false;
+                m_tempMovement.m_ResetMovementVector();
             }
             else if (hit.collider.gameObject.tag == "look outside" && Vector3.Distance(m_player.position, hit.collider.gameObject.transform.position) <= m_distanceForLookOutside)
             {
@@ -83,6 +91,14 @@ public class MainCamDetectClickThruARenderTexture : MonoBehaviour , IPointerClic
                 m_tempMovement.m_canPlayerMove = false;
                 m_timer = 0;
                 m_lookOutsideNoTriggers = true;
+                m_tempMovement.m_ResetMovementVector();
+            }
+            else if(hit.collider.gameObject.tag == "dishes" && Vector3.Distance(m_player.position, hit.collider.gameObject.transform.position) <= m_distanceForInteraction)
+            {
+                m_dishesAnimator.SetTrigger("Go up");
+                m_dishesIsUp = true;
+                m_tempMovement.m_canPlayerMove = false;
+                m_tempMovement.m_ResetMovementVector();
             }
         }
     }
@@ -99,6 +115,7 @@ public class MainCamDetectClickThruARenderTexture : MonoBehaviour , IPointerClic
     {
         m_feetCamera.gameObject.SetActive(m_feetIsUp);
         m_lookOutsideCamera.gameObject.SetActive(m_lookOutsideIsUp);
+        m_dishesCamera.gameObject.SetActive(m_dishesIsUp);
     }
 
     private void FeetInteractionTimers()

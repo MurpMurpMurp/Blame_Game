@@ -79,4 +79,11 @@ public class TempMovement : MonoBehaviour
 
         m_rb.transform.position += (camF * m_input.y + camR * m_input.x) * m_moveSpeed * Time.deltaTime;
     }
+
+    public void m_ResetMovementVector()
+    {
+        m_input.x = 0;
+        m_input.y = 0;
+    }
+
 }

@@ -13,17 +13,24 @@ public class dishes : MonoBehaviour, IPointerMoveHandler
     [SerializeField] private float m_damage;
 
     private RaycastHit m_hitMove;
+    private int m_nbOfSpots;
+
+    public int m_nbOfSpotsDone;
+    public bool m_areAllSpotsDone = false;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        GetNumberOfSpots();
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        if (m_nbOfSpots == m_nbOfSpotsDone)
+        {
+            m_areAllSpotsDone = true;
+        }
     }
 
     public void OnPointerMove(PointerEventData eventData)
@@ -47,4 +54,10 @@ public class dishes : MonoBehaviour, IPointerMoveHandler
 
         m_test.transform.position = m_hitMove.point;
     }
+
+    private void GetNumberOfSpots()
+    {
+        m_nbOfSpots = this.transform.childCount;
+    }
+
 }
