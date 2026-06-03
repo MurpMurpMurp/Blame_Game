@@ -1,8 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class dishes : MonoBehaviour, IPointerMoveHandler
 {
@@ -12,19 +9,14 @@ public class dishes : MonoBehaviour, IPointerMoveHandler
     [SerializeField] private GameObject m_test;
     [SerializeField] private float m_damage;
 
-    private RaycastHit m_hitMove;
-    private int m_nbOfSpots;
+    [SerializeField] private Plate m_plate;
 
+    private RaycastHit m_hitMove;
+
+    public int m_nbOfSpots;
     public int m_nbOfSpotsDone;
     public bool m_areAllSpotsDone = false;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        GetNumberOfSpots();
-    }
-
-    // Update is called once per frame
     void Update()
     {
         if (m_nbOfSpots == m_nbOfSpotsDone)
@@ -49,15 +41,15 @@ public class dishes : MonoBehaviour, IPointerMoveHandler
             if (m_hitMove.collider.gameObject.CompareTag("spot"))
             {
                 m_hitMove.collider.gameObject.GetComponent<spots>().m_health -= m_damage;
+
+                if (m_hitMove.collider.gameObject.GetComponent<spots>().m_isThisSpotDone == true)
+                {
+                    m_nbOfSpotsDone++;
+                    m_hitMove.collider.gameObject.SetActive(false);
+                }
             }
         }
 
         m_test.transform.position = m_hitMove.point;
     }
-
-    private void GetNumberOfSpots()
-    {
-        m_nbOfSpots = this.transform.childCount;
-    }
-
 }

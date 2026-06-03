@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class spots : MonoBehaviour
@@ -11,6 +9,8 @@ public class spots : MonoBehaviour
 
     private Vector3 m_initialSize;
 
+    public bool m_isThisSpotDone = false;
+
 
     void Start()
     {
@@ -21,8 +21,14 @@ public class spots : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        this.transform.localScale = new Vector3(m_initialSize.x * m_health / m_maxHealth, m_initialSize.y * m_health / m_maxHealth, m_initialSize.z * m_health / m_maxHealth);
+        if (!m_isThisSpotDone)
+        {
+            this.transform.localScale = new Vector3(m_initialSize.x * m_health / m_maxHealth, m_initialSize.y * m_health / m_maxHealth, m_initialSize.z * m_health / m_maxHealth);
+        }
 
-        //if 
+        if (m_health < 40 && !m_isThisSpotDone)
+        {
+            m_isThisSpotDone = true;
+        }
     }
 }

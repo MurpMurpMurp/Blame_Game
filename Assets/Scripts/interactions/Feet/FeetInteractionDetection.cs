@@ -57,18 +57,12 @@ public class FeetInteractionDetection : MonoBehaviour, IPointerDownHandler, IPoi
         {
             m_feetCompleted = true;
         }
-        //else
-        //{
-        //    m_feetCompleted = false;
-        //}
     }
 
     private void MoveTheObjectThatWasClickedOn()
     {
         if (m_hitRigidbody != null && m_mocassinWasPressed)
         {
-            Debug.Log("holy crap lois I'm in the debugger");
-
             m_hitRigidbody.AddForce((m_hitMove.point - m_hitRigidbody.position).normalized * m_force, ForceMode.Force);
         }
     }

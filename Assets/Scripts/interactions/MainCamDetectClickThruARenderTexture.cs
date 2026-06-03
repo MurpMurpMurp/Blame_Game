@@ -1,5 +1,3 @@
-using System.Runtime.CompilerServices;
-using Unity.Burst.CompilerServices;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -29,6 +27,7 @@ public class MainCamDetectClickThruARenderTexture : MonoBehaviour , IPointerClic
     [SerializeField] private Camera m_lookOutsideCamera;
 
     [Header("Dishes References")]
+    [SerializeField] private dishes m_dishes;
     [SerializeField] private Animator m_dishesAnimator;
     [SerializeField] private Camera m_dishesCamera;
 
@@ -99,6 +98,8 @@ public class MainCamDetectClickThruARenderTexture : MonoBehaviour , IPointerClic
                 m_dishesIsUp = true;
                 m_tempMovement.m_canPlayerMove = false;
                 m_tempMovement.m_ResetMovementVector();
+                m_timer = 0;
+                m_timerDone=false;
             }
         }
     }
@@ -109,6 +110,7 @@ public class MainCamDetectClickThruARenderTexture : MonoBehaviour , IPointerClic
 
         FeetInteractionTimers();
         LookOutsideEndTriggers();
+        DishesEndTrigger();
     }
 
     private void DeactivateCamerasWhenNotInUse()
@@ -120,6 +122,11 @@ public class MainCamDetectClickThruARenderTexture : MonoBehaviour , IPointerClic
 
     private void FeetInteractionTimers()
     {
+        if (!m_feetInteractionDetection.m_feetCompleted && m_feetIsUp)
+        {
+            m_timer = 0;
+        }
+
         if (m_feetInteractionDetection.m_feetCompleted)
         {
             if (m_timer < m_timeToReach)
@@ -130,6 +137,7 @@ public class MainCamDetectClickThruARenderTexture : MonoBehaviour , IPointerClic
             {
                 m_timerDone = true;
             }
+
             if (m_timer < m_timeToReach2)
             {
                 m_timer += Time.deltaTime;
@@ -164,6 +172,34 @@ public class MainCamDetectClickThruARenderTexture : MonoBehaviour , IPointerClic
             m_lookOutsideAnimator.SetTrigger("Go down");
             m_tempMovement.m_canPlayerMove = true;
             m_lookOutsideIsUp = false;
+        }
+    }
+
+    private void DishesEndTrigger()
+    {
+        if (m_dishes.m_areAllSpotsDone)
+        {
+            if (m_timer >= m_timeToReach)
+            {
+                m_timerDone = true;
+            }
+            else
+            {
+                m_timer += Time.deltaTime;
+                m_timerDone = false;
+            }
+        }
+
+        if (!m_dishes.m_areAllSpotsDone && m_dishesIsUp)
+        {
+            m_timer = 0;
+        }
+
+        if (m_dishes.m_areAllSpotsDone && m_timerDone)
+        {
+            m_dishesAnimator.SetTrigger("Go down");
+            m_tempMovement.m_canPlayerMove = true;
+            m_dishesIsUp = false;
         }
     }
 }
