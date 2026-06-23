@@ -15172,9 +15172,9 @@ GameObject:
   - component: {fileID: 590119913}
   - component: {fileID: 590119912}
   - component: {fileID: 590119911}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: kitchen counter (2)
-  m_TagString: dishes
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -42533,7 +42533,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2131216829
 Transform:
   m_ObjectHideFlags: 0
@@ -42632,7 +42632,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: bc43907256456024388b26c07bb9355c,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 7.726
+      value: 1.938
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: bc43907256456024388b26c07bb9355c,
         type: 3}
