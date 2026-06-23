@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class Plate : MonoBehaviour
 {
-    [SerializeField] private dishes m_dishes;
+    public int m_nbOfSpots;
 
     void Start()
     {
-        m_dishes.m_nbOfSpots = this.transform.childCount;
+        m_nbOfSpots = this.transform.childCount;
     }
 }

@@ -12,6 +12,7 @@ TagManager:
   - look outside
   - spot
   - dishes
+  - kitchenWalls
   layers:
   - Default
   - TransparentFX

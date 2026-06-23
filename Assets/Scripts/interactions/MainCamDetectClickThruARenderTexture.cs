@@ -177,7 +177,7 @@ public class MainCamDetectClickThruARenderTexture : MonoBehaviour , IPointerClic
 
     private void DishesEndTrigger()
     {
-        if (m_dishes.m_areAllSpotsDone)
+        if (m_dishes.m_interactionFinished)
         {
             if (m_timer >= m_timeToReach)
             {
@@ -190,12 +190,12 @@ public class MainCamDetectClickThruARenderTexture : MonoBehaviour , IPointerClic
             }
         }
 
-        if (!m_dishes.m_areAllSpotsDone && m_dishesIsUp)
+        if (!m_dishes.m_interactionFinished && m_dishesIsUp)
         {
             m_timer = 0;
         }
 
-        if (m_dishes.m_areAllSpotsDone && m_timerDone)
+        if (m_dishes.m_interactionFinished && m_timerDone)
         {
             m_dishesAnimator.SetTrigger("Go down");
             m_tempMovement.m_canPlayerMove = true;
